@@ -1,0 +1,5 @@
+[master]
+k8smaster
+
+[workers]
+k8sworker1
