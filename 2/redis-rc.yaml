@@ -1,0 +1,22 @@
+apiVersion: v1
+kind: ReplicationController
+metadata:
+  name: redis
+  labels:
+    app: redis
+  annotations:
+    pod.beta.kubernetes.io/hostname: redis
+spec:
+  replicas: 1
+  selector:
+    app: "redis"
+  template:
+    metadata:
+     labels:
+        app: "redis"
+    spec:
+      containers:
+      - name: "redis"
+        image: "kkurpanik/redis"
+        ports:
+        - containerPort: 6379

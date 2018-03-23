@@ -1,0 +1,39 @@
+kind: List
+apiVersion: v1
+items:
+- kind: ReplicationController
+  apiVersion: v1
+  metadata:
+    labels:
+      app: flaskapp
+    name: flaskapp-controller
+  spec:
+    replicas: 1
+    selector:
+      app: flaskapp
+    template:
+      metadata:
+        labels:
+          app: flaskapp
+      spec:
+        containers:
+        - name: flaskapp
+          image: "kkurpanik/flaskapp"
+          imagePullPolicy: Always
+          ports:
+          - containerPort: 5000
+            protocol: TCP
+- kind: Service
+  apiVersion: v1
+  metadata:
+    labels:
+      app: flaskapp
+    name: flaskapp
+    namespace: default
+  spec:
+    type: NodePort
+    ports:
+    - port: 5000
+      nodePort: 30766
+    selector:
+      app: flaskapp
